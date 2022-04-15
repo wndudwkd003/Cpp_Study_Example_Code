@@ -7,6 +7,7 @@ using namespace std;
 
 int main()
 {
+    srand(time(NULL));
     char mine_list[10][10];
     int rand_x, rand_y;
     fill(&mine_list[0][0], &mine_list[9][10], '.');    // '.'로 초기화
