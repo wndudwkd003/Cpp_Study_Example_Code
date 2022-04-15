@@ -24,7 +24,7 @@ public:
 	Sprite spaceship, burst;
 	Font font;
 	Text text;
-	bool flag;	// ¿£µù ÇÃ·¡±×
+	bool flag;	// ì—”ë”© í”Œëž˜ê·¸
 	LunarLander(float h, float v, float f)
 	{
 		flag = false;
@@ -43,7 +43,7 @@ public:
 
 		if (!font.loadFromFile("fonts/OpenSans-Bold.ttf"))
 		{
-			cout << "ÆùÆ® ÆÄÀÏÀ» ¿ÀÇÂÇÒ ¼ö ¾øÀ½!" << endl;
+			cout << "í°íŠ¸ íŒŒì¼ì„ ì˜¤í”ˆí•  ìˆ˜ ì—†ìŒ!" << endl;
 		}
 		text.setFont(font);
 	}
@@ -55,8 +55,8 @@ public:
 			amount = 0;
 		}
 		fuel -= amount;
-		velocity += -amount + 0.8f * dt * 3.3f;	// µ¨Å¸Å¸ÀÓ °öÇØ¼­ ¸ðµç ÄÄÇ»ÅÍ µ¿ÀÏÇÑ °á°ú ³ª¿È
-		if(!flag) y += velocity;	// Áß·Â
+		velocity += -amount + 0.8f * dt * 3.3f;	// ë¸íƒ€íƒ€ìž„ ê³±í•´ì„œ ëª¨ë“  ì»´í“¨í„° ë™ì¼í•œ ê²°ê³¼ ë‚˜ì˜´
+		if(!flag) y += velocity;	// ì¤‘ë ¥
 		spaceship.setPosition(x, y);
 		status = "Watch out. If the speed is below -5 or above 5, the ship will break!\nheight: " + to_string(y) +"\nspeed: " + to_string(velocity) + "\nfuel: " + to_string(fuel);
 	}
@@ -75,10 +75,10 @@ int main()
 {
 	RenderWindow window(VideoMode(1920, 1080), "LUNAR LANDER");
 	window.setFramerateLimit(60);
-	Clock dtClock;	// µ¨Å¸Å¸ÀÓ
-	float dt;	// µ¨Å¸Å¸ÀÓ
-	Texture t, t2;	// ¹è°æ°ú ¶¥ ÅØ½ºÃÄ
-	Sprite background, land;	// ¹è°æ°ú ¶¥ ½ºÇÁ¶óÀÌÆ®
+	Clock dtClock;	// ë¸íƒ€íƒ€ìž„
+	float dt;	// ë¸íƒ€íƒ€ìž„
+	Texture t, t2;	// ë°°ê²½ê³¼ ë•… í…ìŠ¤ì³
+	Sprite background, land;	// ë°°ê²½ê³¼ ë•… ìŠ¤í”„ë¼ì´íŠ¸
 	t.loadFromFile("images/background.png");
 	background.setTexture(t);
 	t2.loadFromFile("images/land.png");
@@ -86,14 +86,14 @@ int main()
 	land.setPosition(1920 / 2, 700);
 	LunarLander lander(300.0, 1.0, 100.0);		
 	int score = 0;
-	bool flag1 = false;	// ¿£µù ÇÃ·¡±×
-	bool flag_faile = false;	// ½ÇÆÐ ÇÃ·¡±×
+	bool flag1 = false;	// ì—”ë”© í”Œëž˜ê·¸
+	bool flag_faile = false;	// ì‹¤íŒ¨ í”Œëž˜ê·¸
 	Text end_text;
 	end_text.setFont(lander.font);
 	end_text.setString("Your Spaceship is safe!!\n         Youre Score: " + to_string(score));
 	end_text.setCharacterSize(75);
 
-	FloatRect textRect = end_text.getGlobalBounds();	// ±ÛÀÚ Áß¾Ó Á¤·ÄÀ» À§ÇØ »ç°¢ rect ¸¸µë
+	FloatRect textRect = end_text.getGlobalBounds();	// ê¸€ìž ì¤‘ì•™ ì •ë ¬ì„ ìœ„í•´ ì‚¬ê° rect ë§Œë“¬
 	end_text.setOrigin(textRect.left + textRect.width / 2.f, textRect.top + textRect.height / 2.f);
 	end_text.setPosition(3000.f, 3000.f);
 
@@ -130,13 +130,13 @@ int main()
 		{
 			if (!flag_faile)
 			{
-				// ½ÇÆÐ ÇÃ·¡±×°¡ ¾Æ´Ò½Ã¿¡¸¸ ½Â¸® ±ÛÀÚ ³ª¿À°Ô ÀÌ°Å ¾ÈÇÏ¸é ³¡³¯¶§ ¼Ó·ÂÀÌ 0ÀÌ¶ó ½ÇÆÐ Ç¥½Ã ¶¹´Ù°¡ ¼º°ø Ç¥½Ã¶ä
+				// ì‹¤íŒ¨ í”Œëž˜ê·¸ê°€ ì•„ë‹ì‹œì—ë§Œ ìŠ¹ë¦¬ ê¸€ìž ë‚˜ì˜¤ê²Œ ì´ê±° ì•ˆí•˜ë©´ ëë‚ ë•Œ ì†ë ¥ì´ 0ì´ë¼ ì‹¤íŒ¨ í‘œì‹œ ë–´ë‹¤ê°€ ì„±ê³µ í‘œì‹œëœ¸
 				score = (int)(lander.fuel + 100 - lander.velocity) * 15;
 				end_text.setString("Your Spaceship is safe!!\n         Youre Score: " + to_string(score));
 				end_text.setPosition(1920 / 2.f, 1080 / 2.f - 200.f);
 				flag1 = true;	
 			}
-			//cout << "¶¥¿¡ Âø·ú" << endl;
+			//cout << "ë•…ì— ì°©ë¥™" << endl;
 		}
 		if (lander.spaceship.getPosition().y >= 1100 || 
 			(land.getGlobalBounds().intersects(lander.spaceship.getGlobalBounds()) &&
@@ -153,7 +153,7 @@ int main()
 		{
 			lander.x = lander.spaceship.getPosition().x;
 			lander.y = lander.spaceship.getPosition().y;
-			lander.velocity = 0;	// ¿£µù ÇÃ·¡±×¸é Á¤Áö
+			lander.velocity = 0;	// ì—”ë”© í”Œëž˜ê·¸ë©´ ì •ì§€
 		}
 		window.clear();
 		window.draw(background);
