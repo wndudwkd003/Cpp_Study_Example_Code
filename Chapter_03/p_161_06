@@ -1,0 +1,28 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+    string input, print;
+    while (input != "quit")
+    {
+        cout << "전화번호를 입력하시오: ";
+        cin >> input;
+        for (auto& c : input)
+        {
+            if (c == '(' || c == ')')
+            {
+                continue;
+            }
+            else
+            {
+                print.push_back(c);
+            }
+        }
+        cout << print << endl;;
+        print.erase();
+    }
+    return 0;
+}
