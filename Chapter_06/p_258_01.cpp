@@ -1,69 +1,82 @@
 #include <iostream>
-#include <string>
 #include <Windows.h>
 #include <conio.h>
-#include <ctime>
-#include <cstdlib>
 #include <vector>
+#include <cstdlib>
+#include <ctime>
+#include <cstdio>
+
 using namespace std;
+
 class Circle
 {
 private:
-    int x, y, radius;
-    HDC hdc;
+	int x, y, r;
 public:
-    Circle() : x(0), y(0), radius(0) {
-        hdc = GetWindowDC(GetForegroundWindow());
-    }
-    void setValue(int x, int y, int r)
-    {
-        this->x = x;
-        this->y = y;
-        this->radius = r;
-    }
-    vector<int> getValue()
-    {
-        vector<int> vec = { x, y, radius };
-        return vec;
-    }
-    void print()
-    {
-        Ellipse(hdc, x - radius, y - radius, x + radius, y + radius);
-    }
+	Circle(int x = 0, int y = 0, int r = 0) : x(x), y(y), r(y) {}
+	vector<int> get_coord()
+	{
+		return { x, y };
+	}
+	int get_radius()
+	{
+		return r;
+	}
+	void set_coord(int x, int y)
+	{
+		this->x = x;
+		this->y = y;
+	}
+	void set_radius(int r)
+	{
+		this->r = r;
+	}
+	void print_window()
+	{
+		HDC hdc = GetWindowDC(GetForegroundWindow());
+		Ellipse(hdc, x - r, y - r, x + r, y + r);
+	}
 };
 
 int main()
 {
-    srand(time(NULL));
+	srand(time(NULL));
+	Circle ob[15];
+	char input;
+	do
+	{
+		
+		for (Circle& circle : ob)
+		{
+			circle.set_coord(rand() % 500, rand() % 300);
+			circle.set_radius(rand() % 100);
+		}
 
-    Circle circles[10];
-    char input;
-    while (true)
-    {
-        input = _getch();
-        if (input == 'c')
-        {
-            system("cls");
-            for (Circle& ob : circles)
-            {
-                ob.setValue(rand() % 1000, rand() % 500, rand() % 50);
-                ob.print();
-            }
-        }
-        else if (input == 'm')
-        {
-            system("cls");
-            for (Circle& ob : circles)
-            {
-                ob.setValue(ob.getValue().at(0) + 100, ob.getValue().at(1), ob.getValue().at(2));
-                ob.print();
-            }
-        }
-        else if (input == 'q')
-        {
-            break;
-        }
-    }
+		input = _getch();
 
-    return 0;
+		if (input == 'm')
+		{
+			system("cls");
+			for (Circle& circle : ob)
+			{
+				
+				circle.print_window();
+			}
+		}
+		else if (input == 'c')
+		{
+			system("cls");
+		}
+		else if (input == 'p')
+		{
+			for (Circle& circle : ob)
+			{
+				printf("%d %d\n", circle.get_coord().at(0), circle.get_coord().at(1));
+				printf("%d\n", circle.get_radius());
+			}
+		}
+	} while (input != 'q');
+
+
+	return 0;
 }
